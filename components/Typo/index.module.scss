@@ -1,0 +1,28 @@
+@import '../../styles/variables';
+
+.title {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+}
+
+.normal {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  color: $gray-300;
+  line-height: 20px;
+}
+
+.hints {
+  display: block;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+  color: $gray-500;
+
+  &--error {
+    color: $error-500;
+  }
+}
