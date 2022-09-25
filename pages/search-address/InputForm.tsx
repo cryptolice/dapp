@@ -17,6 +17,8 @@ export type InputFormProps = Extendable & {
 
 const InputForm = (props: InputFormProps) => {
   const {form, loading = false} = props;
+
+  if (!form) return null;
   return (
     <div className={props.className}>
       <Typo.Title className={
