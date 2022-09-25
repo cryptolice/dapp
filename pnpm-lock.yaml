@@ -1,6 +1,7 @@
 lockfileVersion: 5.4
 
 specifiers:
+  '@hookform/error-message': ^2.0.0
   '@types/node': 18.7.20
   '@types/react': 18.0.21
   '@types/react-dom': 18.0.6
@@ -12,16 +13,19 @@ specifiers:
   postcss: ^8.4.16
   react: 18.2.0
   react-dom: 18.2.0
+  react-hook-form: ^7.36.1
   react-loading: ^2.0.3
   sass: ^1.55.0
   tailwindcss: ^3.1.8
   typescript: 4.8.3
 
 dependencies:
+  '@hookform/error-message': 2.0.0_t4e2o6isxgefemw5pro4vkqtby
   classnames: 2.3.2
   next: 12.3.1_2mygebwfgdyopr3fy2qddu2eli
   react: 18.2.0
   react-dom: 18.2.0_react@18.2.0
+  react-hook-form: 7.36.1_react@18.2.0
   react-loading: 2.0.3_react@18.2.0
 
 devDependencies:
@@ -69,6 +73,18 @@ packages:
     transitivePeerDependencies:
       - supports-color
     dev: true
+
+  /@hookform/error-message/2.0.0_t4e2o6isxgefemw5pro4vkqtby:
+    resolution: {integrity: sha512-Y90nHzjgL2MP7GFy75kscdvxrCTjtyxGmOLLxX14nd08OXRIh9lMH/y9Kpdo0p1IPowJBiZMHyueg7p+yrqynQ==}
+    peerDependencies:
+      react: '>=16.8.0'
+      react-dom: '>=16.8.0'
+      react-hook-form: ^7.0.0
+    dependencies:
+      react: 18.2.0
+      react-dom: 18.2.0_react@18.2.0
+      react-hook-form: 7.36.1_react@18.2.0
+    dev: false
 
   /@humanwhocodes/config-array/0.10.5:
     resolution: {integrity: sha512-XVVDtp+dVvRxMoxSiSfasYaG02VEe1qH5cKgMQJWhol6HwzbcqoCMJi8dAGoYAO57jhUyhI6cWuRiTcRaDaYug==}
@@ -1820,6 +1836,15 @@ packages:
       loose-envify: 1.4.0
       react: 18.2.0
       scheduler: 0.23.0
+    dev: false
+
+  /react-hook-form/7.36.1_react@18.2.0:
+    resolution: {integrity: sha512-EbYYkCG2p8ywe7ikOH2l02lAFMrrrslZi1I8fqd8ifDGNAkhomHZQzQsP6ksvzrWBKntRe8b5L5L7Zsd+Gm02Q==}
+    engines: {node: '>=12.22.0'}
+    peerDependencies:
+      react: ^16.8.0 || ^17 || ^18
+    dependencies:
+      react: 18.2.0
     dev: false
 
   /react-is/16.13.1:

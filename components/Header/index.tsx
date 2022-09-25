@@ -7,8 +7,8 @@ const Nav = (props: Extendable) => {
   return (
     <nav className={props.className}>
       <ul className={'flex items-center'}>
-        <li className={'mx-3'}><Link href={'/'}>SEARCH</Link></li>
-        <li className={'mx-3'}><Link href={'/'}>REPORT</Link></li>
+        <li className={'mx-3'}><Link href={'/search-address'}>SEARCH</Link></li>
+        <li className={'mx-3'}><Link href={'/report-address'}>REPORT</Link></li>
         <li className={'mx-3'}><Link href={'/'}>GUIDE</Link></li>
         <li className={'mx-3'}><Link href={'/'}>FAQ</Link></li>
         <li className={'mx-3'}><Link href={'/'}>ABOUT</Link></li>
@@ -20,8 +20,8 @@ const Nav = (props: Extendable) => {
 const Header = () => {
   return (
     <header className={'py-4 px-2 flex items-center'}>
-      <Typo.Title className={'!text-2xl'}>CRYPTOLICE</Typo.Title>
-      <Nav className={'ml-8'} />
+      <Link href={'/'}><Typo.Title className={'!text-2xl cursor-pointer'}>CRYPTOLICE</Typo.Title></Link>
+      <Nav className={'ml-8'}/>
       <div className={'ml-auto'}>
         Connect Wallet
       </div>
