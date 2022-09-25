@@ -2,6 +2,7 @@ import React from 'react';
 import Typo from '../Typo';
 import Link from "next/link";
 import {Extendable} from "../../types";
+import {ConnectButton} from "@rainbow-me/rainbowkit";
 
 const Nav = (props: Extendable) => {
   return (
@@ -23,7 +24,7 @@ const Header = () => {
       <Link href={'/'}><Typo.Title className={'!text-2xl cursor-pointer'}>CRYPTOLICE</Typo.Title></Link>
       <Nav className={'ml-8'}/>
       <div className={'ml-auto'}>
-        Connect Wallet
+        <ConnectButton/>
       </div>
     </header>
   );
