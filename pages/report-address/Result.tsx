@@ -15,21 +15,27 @@ import Chip from "@mui/material/Chip";
 import GppMaybeIcon from '@mui/icons-material/GppMaybe';
 import Button from "../../components/Button";
 import {useRouter} from "next/router";
+import {Alert} from "@mui/material";
+
+export enum ResultType {
+  SUCCESS = 'SUCCESS',
+  DUPLICATED = 'DUPLICATED',
+  INVALID = 'INVALID'
+}
 
 export type ResultProps = Extendable & {
+  resultType: ResultType;
+  score: number;
   address: string;
   chainName: string;
-  score: number;
-  riskDetails: RiskDetail[];
   onTryAnother: () => void;
 }
 
 const Result = (props: ResultProps) => {
-  const score = 1;
   const {
-    address = '',
-    // score = -1,
-    riskDetails = []
+    score = -1,
+    resultType = ResultType.SUCCESS,
+    address = '0x9bd547446ea13c0c13df2c1885e1f5b019a77441',
   } = props;
   const stars = ratingStars(score)
   const level = ratingLevelByStars(stars)
@@ -39,12 +45,32 @@ const Result = (props: ResultProps) => {
       'text-center',
       props.className
     )}>
+
       <Typo.Title className={
         '!text-4xl'
-      }>The Security Level is</Typo.Title>
+      }>Thank you for the report ❤️</Typo.Title>
+
+      <Typo.Title className={
+        classnames('!text-2xl mt-4', {
+          'text-green-500': resultType === ResultType.SUCCESS,
+        })
+      }>Your submission has been accepted 🎉️</Typo.Title>
+
+      <Typo.Normal className={'mt-2'}>
+        Thank you for contributing to creating a safer environment in web3
+      </Typo.Normal>
+
+      <Alert
+        severity="success"
+        className={'mt-4'}
+      >🎁 A reward NFT has sent to your address, go check it 🥳</Alert>
+
+      <Typo.Title className={
+        '!text-2xl mt-4'
+      }>The Contract's security level is</Typo.Title>
 
       <Typo.Title className={classnames(
-        '!text-4xl mt-2 ',
+        '!text-2xl mt-2 ',
         {
           'text-red-500': level === RatingLevel.EXTREMELY_DANGEROUS,
           'text-red-700': level === RatingLevel.DANGEROUS,
@@ -85,58 +111,6 @@ const Result = (props: ResultProps) => {
           }}
         >Try Another Address</Button>
       </div>
-
-      {isNonEmptyArray(riskDetails) && (
-        <div className={'text-left'}>
-          <Typo.Title className={'!text-xl mb-2'}>Risk Details:</Typo.Title>
-          {riskDetails.map((item, index) => (
-            <Accordion key={item.name + index}>
-              <AccordionSummary
-                expandIcon={<ExpandMoreIcon/>}
-                aria-controls="panel1a-content"
-                id={item.name + index}
-              >
-                <GppMaybeIcon className={'text-red-700 mr-2'}/>
-                <Typo.Normal className={'!text-slate-500'}>{item.name}</Typo.Normal>
-              </AccordionSummary>
-              <AccordionDetails>
-                {typeof item.value === 'string' && (
-                  <div>
-                    <Typo.Small>
-                      value: {item.value}
-                    </Typo.Small>
-                  </div>
-                )}
-                {isNonEmptyArray(item.labels) && (
-                  <div>
-                    <Typo.Small className={'mb-2'}>
-                      Labels:
-                    </Typo.Small>
-                    <Stack direction="row" spacing={1}>
-                      {item.labels.map(label => (
-                        <Chip key={label} label={label}/>
-                      ))}
-                    </Stack>
-                  </div>
-                )}
-
-                {isNonEmptyArray(item.sources) && (
-                  <div className={'mt-4'}>
-                    <Typo.Small className={'mb-2'}>
-                      Sources:
-                    </Typo.Small>
-                    <Stack direction="row" spacing={1}>
-                      {item.sources.map(item => (
-                        <Chip key={item} label={item}/>
-                      ))}
-                    </Stack>
-                  </div>
-                )}
-              </AccordionDetails>
-            </Accordion>
-          ))}
-        </div>
-      )}
     </div>
   );
 };

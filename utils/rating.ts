@@ -17,7 +17,7 @@ export enum RatingLevel {
   UNKNOWN = 'Unknown',
   SAFE = 'Safe',
   FAIRLY_SAFE = 'Fairly Safe',
-  GENERALLY_GOOD = 'Generally Good',
+  GENERALLY_GOOD = 'Relatively Good',
   INSECURE = 'Insecure',
   DANGEROUS = 'Dangerous',
   EXTREMELY_DANGEROUS = 'Extremely Dangerous',

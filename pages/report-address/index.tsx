@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import Layout from "../../components/Layout";
 import Head from "next/head";
 import Header from "../../components/Header";
@@ -9,6 +9,9 @@ import Form from "../../components/form/Form";
 import {useForm} from "react-hook-form";
 import FormControl from "../../components/form/FormControl";
 import Button from "../../components/Button";
+import {useReportContractWrite} from "../../hooks/useReportContractWrite";
+import {useAccount, useNetwork, useWaitForTransaction} from "wagmi";
+import Result, {ResultType} from "./Result";
 
 const SearchAddressPage = () => {
   const form = useForm({
@@ -17,6 +20,34 @@ const SearchAddressPage = () => {
       'address': ''
     }
   })
+  const network = useNetwork()
+  const {data, isLoading, writeAsync} = useReportContractWrite();
+  const [hash, setHash] = useState('');
+  const [address, setAddress] = useState('');
+  const {data: txResult, isLoading: txLoading} = useWaitForTransaction({
+    hash: hash
+  });
+
+  const handleSubmit = async (data: { address: string }) => {
+    console.log(network, data, writeAsync)
+    if (!network?.chain || !data?.address || !writeAsync) return;
+    setAddress(data.address)
+    const result = await writeAsync({
+      // @ts-ignore
+      args: [network.chain.id, data.address],
+    });
+    setHash(result.hash)
+  }
+
+  useEffect(() => {
+    console.log('report data', data)
+    console.log('isLoading', isLoading)
+  }, [data, isLoading])
+
+  useEffect(() => {
+    console.log('txResult', txResult)
+    console.log('txLoading', txLoading)
+  }, [txResult, txLoading])
 
   return (
     <Layout>
@@ -29,43 +60,57 @@ const SearchAddressPage = () => {
       <Header/>
 
       <main
-        className={'flex flex-col justify-center items-center mt-32'}
+        className={'flex flex-col justify-center items-center mt-8'}
       >
         <Card className={'w-[600px] !py-12 !px-12'}>
-          <Typo.Title className={
-            '!text-4xl'
-          }>
-            Report Address
-          </Typo.Title>
-          <Typo.Normal className={'mt-1'}>
-            Report the address of smart contract if it seems malicious.
-            <br/>
-            You will be rewarded a special NFT for the acceptance of Cryptolice
-          </Typo.Normal>
+          {txResult ? (
+            <Result
+              resultType={ResultType.SUCCESS}
+              score={20}
+              address={address}
+              chainName={network.chain?.name ?? ''}
+              onTryAnother={function () {
+                setHash('');
+                form.reset();
+              }}
+            />
+          ) : (
+            <>
+              <Typo.Title className={
+                '!text-4xl'
+              }>
+                Report Address
+              </Typo.Title>
+              <Typo.Normal className={'mt-1'}>
+                Report the address of smart contract if it seems malicious.
+                <br/>
+                You will be rewarded a special NFT for the acceptance of Cryptolice
+              </Typo.Normal>
 
-          <div className={'mt-8'}>
-            <Form
-              form={form}
-              onSubmit={(data) => {
-                console.log('submit', data);
-              }}>
-              <div className={'flex items-center'}>
-                <FormControl name={'address'} className={'flex-1'}>
-                  <Input
-                    placeholder={'address of smart contract, e.g. 0x0000000000000'}
-                  />
-                </FormControl>
+              <div className={'mt-8'}>
+                <Form
+                  form={form}
+                  onSubmit={handleSubmit}>
+                  <div className={'flex items-center'}>
+                    <FormControl name={'address'} className={'flex-1'}>
+                      <Input
+                        placeholder={'address of smart contract, e.g. 0x0000000000000'}
+                      />
+                    </FormControl>
 
-                <Button
-                  type={'submit'}
-                  state={'primary'}
-                  className={'!w-[120px] ml-4'}>
-                  Submit
-                </Button>
+                    <Button
+                      type={'submit'}
+                      state={'primary'}
+                      className={'!w-[120px] ml-4'}
+                      loading={isLoading || txLoading}
+                    >
+                      Submit
+                    </Button>
+                  </div>
+                </Form>
               </div>
-            </Form>
-          </div>
-
+            </>
+          )}
         </Card>
 
       </main>

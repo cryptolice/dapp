@@ -18,7 +18,9 @@ const Nav = (props: Extendable) => {
 const Header = () => {
   return (
     <header className={'py-4 px-2 flex items-center'}>
-      <Link href={'/'}><Typo.Title className={'!text-2xl cursor-pointer'}>CRYPTOLICE</Typo.Title></Link>
+      <Typo.Title className={'!text-2xl cursor-pointer'}>
+        <Link href={'/'}>CRYPTOLICE</Link>
+      </Typo.Title>
       <Nav className={'ml-8'}/>
       <div className={'ml-auto'}>
         <ConnectButton/>
