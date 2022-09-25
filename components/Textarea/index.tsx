@@ -5,6 +5,7 @@ import classnames from 'classnames';
 import IconInputSuccess from '../../assets/icons/input-success.svg';
 import IconInputFail from '../../assets/icons/input-fail.svg';
 import {InputState} from '../Input';
+import Image from "next/image";
 
 export type TextareaProps = Extendable &
   TextareaHTMLAttributes<HTMLElement> & {
@@ -64,7 +65,7 @@ const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
         ></textarea>
         {hasInputState(state) && (
           <div className={styles['icon']}>
-            <img src={stateMetrics.icon} alt={stateMetrics.alt}/>
+            <Image src={stateMetrics.icon} alt={stateMetrics.alt}/>
           </div>
         )}
       </div>

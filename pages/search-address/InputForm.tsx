@@ -6,6 +6,8 @@ import Textarea from "../../components/Textarea";
 import Button from "../../components/Button";
 import {Extendable} from "../../types";
 import {UseFormReturn} from "react-hook-form/dist/types";
+import web3 from 'web3'
+import {getInputStateByFormState} from "../../utils/form";
 
 export type InputFormProps = Extendable & {
   loading?: boolean;
@@ -33,9 +35,19 @@ const InputForm = (props: InputFormProps) => {
             props.onSubmit(data)
           }}>
           <div className={'flex items-center'}>
-            <FormControl name={'address'} className={'flex-1'}>
+            <FormControl
+              name={'address'}
+              className={'flex-1'}
+              registerOptions={{
+                required: 'please fill-in the address',
+                validate: (val => {
+                  return web3.utils.isAddress(val) ? true : 'Invalid Address'
+                })
+              }}
+            >
               <Textarea
-                placeholder={'address of smart contract, e.g. 0x0000000000000'}
+                placeholder={'address of smart contract, e.g. 0x0000...0000'}
+                state={getInputStateByFormState(form.formState, 'address')}
               />
             </FormControl>
 

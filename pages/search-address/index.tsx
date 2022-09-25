@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useMemo, useState} from 'react';
 import Layout from "../../components/Layout";
 import Head from "next/head";
 import Header from "../../components/Header";
@@ -8,17 +8,38 @@ import {ChainId} from "../../utils/api";
 import Result from "./Result";
 import InputForm from "./InputForm";
 import {useForm} from "react-hook-form";
+import {useRouter} from 'next/router';
+import web3 from 'web3'
 
 const SearchAddressPage = () => {
   const [address, setAddress] = useState('');
   const [securityInfo, setSecurityInfo] = useState<any>(null)
   const [loading, setLoading] = useState(false);
+  const router = useRouter();
+
   const form = useForm({
     mode: 'onBlur',
     defaultValues: {
       address: ''
     }
   });
+
+  const externalAddressParam = useMemo(() => {
+    if (!router.asPath.includes('?')) return undefined;
+
+    const [, searchQueryStr] = router.asPath.split('?');
+    const query = new URLSearchParams(searchQueryStr);
+    const address = query.get('address') ?? '';
+    return web3.utils.isAddress(address) ? address : undefined;
+  }, [router]);
+
+  useEffect(() => {
+    if (!externalAddressParam || !form) return;
+
+    setAddress(externalAddressParam);
+    form.setValue('address', externalAddressParam);
+    fetchSecurityAddress(ChainId.BNB_MAINNET, externalAddressParam)
+  }, [form, externalAddressParam]);
 
   async function fetchSecurityAddress(chainId: ChainId, address: string) {
     setLoading(true);
@@ -57,7 +78,11 @@ const SearchAddressPage = () => {
               onTryAnother={() => {
                 setAddress('');
                 setSecurityInfo(null);
-                form.reset()
+                form.reset();
+
+                if (externalAddressParam) {
+                  router.replace('/search-address')
+                }
               }}
             />
           ) : (

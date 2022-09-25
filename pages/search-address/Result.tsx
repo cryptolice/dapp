@@ -80,7 +80,7 @@ const Result = (props: ResultProps) => {
           onClick={() => {
             props.onTryAnother()
           }}
-        >Try Another</Button>
+        >Try Another Address</Button>
       </div>
 
       {isNonEmptyArray(riskDetails) && (

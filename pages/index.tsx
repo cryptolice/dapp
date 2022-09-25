@@ -5,6 +5,9 @@ import Typo from '../components/Typo';
 import Button from "../components/Button";
 import Layout from "../components/Layout";
 import {useRouter} from 'next/router'
+import Card from '../components/Card';
+import Image from 'next/image'
+import GetAddrIntroPic from '../assets/how-to-copy-contract-addr.png'
 
 const Home: NextPage = () => {
   const router = useRouter();
@@ -19,8 +22,8 @@ const Home: NextPage = () => {
 
       <Header/>
 
-      <main>
-        <div className={'w-full py-36 px-36 flex flex-col justify-center items-center'}>
+      <main className={'pb-32 flex flex-col items-center'}>
+        <section className={'w-full h-[90vh] py-24 px-36 flex flex-col justify-center items-center'}>
           <Typo.Title className={'!text-6xl'}>
             CRYPTOLICE
           </Typo.Title>
@@ -47,7 +50,20 @@ const Home: NextPage = () => {
           <Typo.Normal className={'!text-lg !text-slate-500 hover:border-b-2 cursor-pointer mt-8'}>
             DOWNLOAD OUR EXTENSION
           </Typo.Normal>
-        </div>
+        </section>
+
+        <section className={'w-[80%]'}>
+          <Typo.Title className={'!text-4xl'}>
+            How to find the address of smart contract?
+          </Typo.Title>
+          <Typo.Normal className={'mt-2'}>
+            If you are not sure about a transaction, copy the contract address, and bring it to us
+            for analyzing.
+          </Typo.Normal>
+          <Card className={'mt-8'}>
+            <Image src={GetAddrIntroPic}></Image>
+          </Card>
+        </section>
       </main>
     </Layout>
   )
