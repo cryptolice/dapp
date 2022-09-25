@@ -5,7 +5,7 @@ import {ChainId} from "../utils/api";
 export function useReportContractWrite() {
   const {config} = usePrepareContractWrite({
     // enabled: false,
-    addressOrName: '0xDa87F8F6c142a10aD51F7c909cBca33aAd46d8ED',
+    addressOrName: '0x0C02eFd53c6a0b509B6C8ba73B728f7fE5add625',
     contractInterface: REPORT_CONTRACT_ABI,
     functionName: 'requestForDemo',
     args: [

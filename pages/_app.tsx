@@ -12,6 +12,8 @@ import {
   WagmiConfig,
 } from 'wagmi';
 import {jsonRpcProvider} from 'wagmi/providers/jsonRpc';
+import {ToastContainer} from 'react-toastify';
+import '../styles/react-toastify.scss'
 
 const bnbMainnetChain: Chain = {
   id: 56,
@@ -51,8 +53,47 @@ const bnbTestnetChain: Chain = {
   testnet: true
 };
 
+const klaytenMainnetChain: Chain = {
+  id: 8217,
+  network: "",
+  name: 'Klaytn Mainnet',
+  iconBackground: '#fff',
+  nativeCurrency: {
+    decimals: 18,
+    name: 'KLAY',
+    symbol: 'KLAY',
+  },
+  rpcUrls: {
+    default: 'https://public-node-api.klaytnapi.com/v1/cypress/',
+  },
+  blockExplorers: {
+    default: {name: 'KlaytnScope', url: 'https://scope.klaytn.com'},
+  },
+  testnet: false
+};
+
+
+const telosMainnetChain: Chain = {
+  id: 40,
+  network: "",
+  name: 'Telos Mainnet',
+  iconBackground: '#fff',
+  nativeCurrency: {
+    decimals: 18,
+    name: 'TLOS',
+    symbol: 'TLOS',
+  },
+  rpcUrls: {
+    default: 'https://mainnet.telos.net/evm',
+  },
+  blockExplorers: {
+    default: {name: 'TelosScan', url: 'https://teloscan.io'},
+  },
+  testnet: false
+};
+
 const {provider, chains} = configureChains(
-  [bnbMainnetChain, bnbTestnetChain],
+  [bnbMainnetChain, bnbTestnetChain, klaytenMainnetChain, telosMainnetChain],
   [jsonRpcProvider({rpc: chain => ({http: chain.rpcUrls.default})})]
 );
 
@@ -73,6 +114,7 @@ function MyApp({Component, pageProps}: AppProps) {
       <WagmiConfig client={wagmiClient}>
         <RainbowKitProvider chains={chains}>
           <Component {...pageProps} />
+          <ToastContainer/>
         </RainbowKitProvider>
       </WagmiConfig>
     </SWRConfig>

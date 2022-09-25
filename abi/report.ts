@@ -18,6 +18,12 @@ export const REPORT_CONTRACT_ABI = [{
   "name": "LogResult",
   "type": "event"
 }, {
+  "inputs": [],
+  "name": "NFT_CONTRACT",
+  "outputs": [{"internalType": "address", "name": "", "type": "address"}],
+  "stateMutability": "view",
+  "type": "function"
+}, {
   "inputs": [{"internalType": "string", "name": "_result", "type": "string"}],
   "name": "__callback",
   "outputs": [],
@@ -25,8 +31,8 @@ export const REPORT_CONTRACT_ABI = [{
   "type": "function"
 }, {
   "inputs": [],
-  "name": "get",
-  "outputs": [],
+  "name": "getBlacklist",
+  "outputs": [{"internalType": "string", "name": "", "type": "string"}],
   "stateMutability": "payable",
   "type": "function"
 }, {

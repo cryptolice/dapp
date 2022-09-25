@@ -13,6 +13,7 @@ import web3 from 'web3'
 import {useNetwork} from "wagmi";
 import Typo from "../../components/Typo";
 import ConnectFirst from "../../components/ConnectFirst";
+import {toast} from "react-toastify";
 
 const SearchAddressPage = () => {
   const [address, setAddress] = useState('');
@@ -115,6 +116,14 @@ const SearchAddressPage = () => {
                   form={form}
                   loading={loading}
                   onSubmit={async (data) => {
+                    const chainId = String(network.chain?.id) as any
+                    if (
+                      chainId !== ChainId.BNB_MAINNET &&
+                      chainId !== ChainId.BNB_TESTNET
+                    ) {
+                      toast.error('Sorry, this network is not supported yet')
+                      return;
+                    }
                     setAddress(data.address)
                     await fetchSecurityAddress(data.address)
                   }}

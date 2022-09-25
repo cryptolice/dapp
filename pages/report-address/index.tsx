@@ -12,6 +12,8 @@ import Button from "../../components/Button";
 import {useReportContractWrite} from "../../hooks/useReportContractWrite";
 import {useAccount, useNetwork, useWaitForTransaction} from "wagmi";
 import Result, {ResultType} from "./Result";
+import {ChainId} from "../../utils/api";
+import {toast} from "react-toastify";
 
 const SearchAddressPage = () => {
   const form = useForm({
@@ -29,7 +31,14 @@ const SearchAddressPage = () => {
   });
 
   const handleSubmit = async (data: { address: string }) => {
-    console.log(network, data, writeAsync)
+    const chainId = String(network.chain?.id) as any
+    if (
+      chainId !== ChainId.BNB_MAINNET &&
+      chainId !== ChainId.BNB_TESTNET
+    ) {
+      toast.error('Sorry, this network is not supported yet')
+      return;
+    }
     if (!network?.chain || !data?.address || !writeAsync) return;
     setAddress(data.address)
     const result = await writeAsync({

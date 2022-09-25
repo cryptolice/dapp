@@ -1,5 +1,6 @@
 export enum ChainId {
-  BNB_MAINNET = '56'
+  BNB_MAINNET = '56',
+  BNB_TESTNET = '97'
 }
 
 // const chain_id: string = "56";

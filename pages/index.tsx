@@ -9,7 +9,6 @@ import Card from '../components/Card';
 import Image from 'next/image'
 import GetAddrIntroPic from '../assets/how-to-copy-contract-addr.png'
 import {useAccount} from 'wagmi';
-import {useEffect} from "react";
 
 const Home: NextPage = () => {
   const router = useRouter();
