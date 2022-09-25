@@ -8,6 +8,7 @@ import {useRouter} from 'next/router'
 import Card from '../components/Card';
 import Image from 'next/image'
 import GetAddrIntroPic from '../assets/how-to-copy-contract-addr.png'
+import LogoPic from '../assets/logo.png'
 import {useAccount} from 'wagmi';
 
 const Home: NextPage = () => {
@@ -26,12 +27,13 @@ const Home: NextPage = () => {
 
       <main className={'pb-32 flex flex-col items-center'}>
         <section className={'w-full h-[90vh] py-24 px-36 flex flex-col justify-center items-center'}>
-          <Typo.Title className={'!text-6xl'}>
-            CRYPTOLICE
-          </Typo.Title>
+          {/*<Typo.Title className={'!text-6xl'}>*/}
+          {/*  CRYPTOLICE*/}
+          {/*</Typo.Title>*/}
+          <Image src={LogoPic} alt="logo"/>
 
           <Typo.Normal className={'!text-3xl text-center mt-4'}>
-            Eliminate the risk of getting scammed before doing transactions in web3
+            We make Web3 a safer world
           </Typo.Normal>
 
           <div className={'flex justify-center items-center w-[400px] mt-16'}>

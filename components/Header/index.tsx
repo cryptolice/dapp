@@ -3,6 +3,8 @@ import Typo from '../Typo';
 import Link from "next/link";
 import {Extendable} from "../../types";
 import {ConnectButton} from "@rainbow-me/rainbowkit";
+import LogoPic from "../../assets/logo.png";
+import Image from "next/image";
 
 const Nav = (props: Extendable) => {
   return (
@@ -18,9 +20,11 @@ const Nav = (props: Extendable) => {
 const Header = () => {
   return (
     <header className={'py-4 px-2 flex items-center'}>
-      <Typo.Title className={'!text-2xl cursor-pointer'}>
-        <Link href={'/'}>CRYPTOLICE</Link>
-      </Typo.Title>
+      <Link href={'/'}>
+        <div className={'!w-[140px] cursor-pointer'}>
+          <Image src={LogoPic} alt="logo"/>
+        </div>
+      </Link>
       <Nav className={'ml-8'}/>
       <div className={'ml-auto'}>
         <ConnectButton/>

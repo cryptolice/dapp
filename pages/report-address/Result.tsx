@@ -67,7 +67,7 @@ const Result = (props: ResultProps) => {
 
       <Typo.Title className={
         '!text-2xl mt-4'
-      }>The Contract's security level is</Typo.Title>
+      }>The Contract&#39;s security level is</Typo.Title>
 
       <Typo.Title className={classnames(
         '!text-2xl mt-2 ',
