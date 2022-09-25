@@ -12,3 +12,23 @@ export function ratingStars(points: number) {
   if (points > 90 && points <= 100) return 5;
   return Number.NaN;
 }
+
+export enum RatingLevel {
+  UNKNOWN = 'Unknown',
+  SAFE = 'Safe',
+  FAIRLY_SAFE = 'Fairly Safe',
+  GENERALLY_GOOD = 'Generally Good',
+  INSECURE = 'Insecure',
+  DANGEROUS = 'Dangerous',
+  EXTREMELY_DANGEROUS = 'Extremely Dangerous',
+}
+
+export function ratingLevelByStars(stars: number) {
+  if (stars >= 0 && stars < 1) return RatingLevel.EXTREMELY_DANGEROUS
+  if (stars >= 1 && stars < 2) return RatingLevel.DANGEROUS
+  if (stars >= 2 && stars < 3) return RatingLevel.INSECURE
+  if (stars >= 3 && stars < 4) return RatingLevel.GENERALLY_GOOD
+  if (stars >= 4 && stars < 4.5) return RatingLevel.FAIRLY_SAFE
+  if (stars >= 4.5 && stars <= 5) return RatingLevel.SAFE
+  return RatingLevel.UNKNOWN;
+}

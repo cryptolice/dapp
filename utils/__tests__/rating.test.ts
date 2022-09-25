@@ -1,4 +1,4 @@
-import {ratingStars} from "../rating";
+import {ratingLevelByStars, ratingStars} from "../rating";
 
 describe('rating stars', function () {
   test('number -> stars rules', () => {
@@ -28,5 +28,27 @@ describe('rating stars', function () {
   test('less than 0 or over 100, return N/A', () => {
     expect(ratingStars(-1)).toEqual(Number.NaN)
     expect(ratingStars(101)).toEqual(Number.NaN)
+  })
+});
+
+
+describe('rating level', function () {
+  test('points -> rating level', () => {
+    expect(ratingLevelByStars(0)).toEqual('Extremely Dangerous');
+    expect(ratingLevelByStars(0.5)).toEqual('Extremely Dangerous');
+    expect(ratingLevelByStars(1)).toEqual('Dangerous');
+    expect(ratingLevelByStars(1.5)).toEqual('Dangerous');
+    expect(ratingLevelByStars(2)).toEqual('Insecure');
+    expect(ratingLevelByStars(2.5)).toEqual('Insecure');
+    expect(ratingLevelByStars(3)).toEqual('Generally Good');
+    expect(ratingLevelByStars(3.5)).toEqual('Generally Good');
+    expect(ratingLevelByStars(4)).toEqual('Fairly Safe');
+    expect(ratingLevelByStars(4.5)).toEqual('Safe');
+    expect(ratingLevelByStars(5)).toEqual('Safe');
+  })
+
+  test('invalid input', () => {
+    expect(ratingLevelByStars(-1)).toEqual('Unknown');
+    expect(ratingLevelByStars(6)).toEqual('Unknown');
   })
 });

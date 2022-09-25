@@ -3,33 +3,38 @@ import Layout from "../../components/Layout";
 import Head from "next/head";
 import Header from "../../components/Header";
 import Card from "../../components/Card";
-import Typo from "../../components/Typo";
-import Input from "../../components/Input";
-import Form from "../../components/form/Form";
-import {useForm} from "react-hook-form";
-import FormControl from "../../components/form/FormControl";
-import Button from "../../components/Button";
-import {useSecurityAddress} from "../../hooks/useSecurityAddress";
+import {getSecurityAddress, RiskDetail, useSecurityAddress} from "../../hooks/useSecurityAddress";
 import {ChainId} from "../../utils/api";
-import Rating from "@mui/material/Rating";
-import {ratingStars} from "../../utils/rating";
-import Textarea from "../../components/Textarea";
+import Result from "./Result";
+import InputForm from "./InputForm";
+import {useForm} from "react-hook-form";
 
 const SearchAddressPage = () => {
+  const [address, setAddress] = useState('');
+  const [securityInfo, setSecurityInfo] = useState<any>(null)
+  const [loading, setLoading] = useState(false);
   const form = useForm({
     mode: 'onBlur',
     defaultValues: {
-      'address': ''
+      address: ''
     }
   });
 
-  const [address, setAddress] = useState('');
-  const {
-    data,
-    loading,
-    error,
-    trustScore
-  } = useSecurityAddress(ChainId.BNB_MAINNET, address)
+  async function fetchSecurityAddress(chainId: ChainId, address: string) {
+    setLoading(true);
+    try {
+      const result = await getSecurityAddress(chainId, address);
+      if (!result) return;
+      const riskDetails: RiskDetail[] = result?.risk_details ? result.risk_details : [];
+      const trustScore = result?.trust_score ?? Number.NaN;
+      setSecurityInfo({
+        trustScore,
+        riskDetails,
+      });
+    } finally {
+      setLoading(false);
+    }
+  }
 
   return (
     <Layout>
@@ -40,61 +45,30 @@ const SearchAddressPage = () => {
       </Head>
 
       <Header/>
-
       <main
-        className={'flex flex-col justify-center items-center mt-32'}
+        className={'flex flex-col justify-center items-center my-16'}
       >
         <Card className={'w-[600px] !py-12 !px-12'}>
-          <Typo.Title className={
-            '!text-4xl'
-          }>
-            Search Address
-          </Typo.Title>
-          <Typo.Normal className={'mt-1'}>
-            Type-in the address of smart contract to check its security
-          </Typo.Normal>
-
-          <div className={'mt-8'}>
-            <Form
+          {securityInfo ? (
+            <Result
+              address={address}
+              score={securityInfo.trustScore}
+              riskDetails={securityInfo.riskDetails}
+              onTryAnother={() => {
+                setAddress('');
+                setSecurityInfo(null);
+                form.reset()
+              }}
+            />
+          ) : (
+            <InputForm
               form={form}
-              onSubmit={(data) => {
-                console.log('submit', data);
+              loading={loading}
+              onSubmit={async (data) => {
                 setAddress(data.address)
-              }}>
-              <div className={'flex items-center'}>
-                <FormControl name={'address'} className={'flex-1'}>
-                  <Textarea
-                    placeholder={'address of smart contract, e.g. 0x0000000000000'}
-                  />
-                </FormControl>
-
-                <Button
-                  type={'submit'}
-                  state={'primary'}
-                  className={'!w-[120px] ml-4'}>
-                  Search
-                </Button>
-              </div>
-            </Form>
-          </div>
-
-          {data && (
-            <div className={'mt-8'}>
-              <Typo.Title className={
-                '!text-xl'
-              }>Detection Result</Typo.Title>
-
-              <Typo.Normal>
-
-              </Typo.Normal>
-
-              <Rating
-                name="read-only"
-                readOnly
-                value={ratingStars(trustScore)}
-                precision={0.5}
-              />
-            </div>
+                await fetchSecurityAddress(ChainId.BNB_MAINNET, data.address)
+              }}
+            />
           )}
         </Card>
 

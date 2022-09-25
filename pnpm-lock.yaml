@@ -4,6 +4,7 @@ specifiers:
   '@emotion/react': ^11.10.4
   '@emotion/styled': ^11.10.4
   '@hookform/error-message': ^2.0.0
+  '@mui/icons-material': ^5.10.6
   '@mui/material': ^5.10.6
   '@types/jest': ^29.0.3
   '@types/node': 18.7.20
@@ -31,6 +32,7 @@ dependencies:
   '@emotion/react': 11.10.4_iapumuv4e6jcjznwuxpf4tt22e
   '@emotion/styled': 11.10.4_g3tud4ene45llglqap74b5kkse
   '@hookform/error-message': 2.0.0_t4e2o6isxgefemw5pro4vkqtby
+  '@mui/icons-material': 5.10.6_zggcj3xc6dksem2wq5c4poxkne
   '@mui/material': 5.10.6_ikcgkdnp4bn3rgptamntbhbo7e
   classnames: 2.3.2
   next: 12.3.1_2mygebwfgdyopr3fy2qddu2eli
@@ -885,6 +887,23 @@ packages:
 
   /@mui/core-downloads-tracker/5.10.6:
     resolution: {integrity: sha512-dmyQBqrKmVU6yCSM4GGal5qNXpViXX+/V1t0GA1A5i9QF5Gx6noV/cw0hrSS2ffLT8L2oScq1oTdA6NVIiQ8lg==}
+    dev: false
+
+  /@mui/icons-material/5.10.6_zggcj3xc6dksem2wq5c4poxkne:
+    resolution: {integrity: sha512-QwxdRmLA46S94B0hExPDx0td+A2unF+33bQ6Cs+lNpJKVsm1YeHwNdYXYcnpWeHeQQ07055OXl7IB2GKDd0MfA==}
+    engines: {node: '>=12.0.0'}
+    peerDependencies:
+      '@mui/material': ^5.0.0
+      '@types/react': ^17.0.0 || ^18.0.0
+      react: ^17.0.0 || ^18.0.0
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
+    dependencies:
+      '@babel/runtime': 7.19.0
+      '@mui/material': 5.10.6_ikcgkdnp4bn3rgptamntbhbo7e
+      '@types/react': 18.0.21
+      react: 18.2.0
     dev: false
 
   /@mui/material/5.10.6_ikcgkdnp4bn3rgptamntbhbo7e:
