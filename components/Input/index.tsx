@@ -1,6 +1,6 @@
-import React, { CSSProperties, InputHTMLAttributes, ReactNode } from 'react';
+import React, {CSSProperties, InputHTMLAttributes, ReactNode} from 'react';
 import styles from './index.module.scss';
-import { Extendable } from '../../types';
+import {Extendable} from '../../types';
 import classnames from 'classnames';
 import IconInputSuccess from '../../assets/icons/input-success.svg';
 import IconInputFail from '../../assets/icons/input-fail.svg';
@@ -9,11 +9,11 @@ export type InputState = 'success' | 'error' | 'default';
 
 export type InputProps = Extendable &
   InputHTMLAttributes<HTMLInputElement> & {
-    state?: InputState;
-    elClassName?: string;
-    elStyle?: CSSProperties;
-    suffix?: ReactNode;
-  };
+  state?: InputState;
+  elClassName?: string;
+  elStyle?: CSSProperties;
+  suffix?: ReactNode;
+};
 
 const stateMap = {
   success: {
@@ -30,6 +30,7 @@ const stateMap = {
   },
 };
 
+// eslint-disable-next-line react/display-name
 export const InputGroup = React.forwardRef<HTMLInputElement, InputProps>(
   (props, ref) => {
     const {
@@ -45,7 +46,7 @@ export const InputGroup = React.forwardRef<HTMLInputElement, InputProps>(
       <div
         className={classnames(
           styles['input-group'],
-          { [styles[`input-group-state--${state}`]]: state !== 'default' },
+          {[styles[`input-group-state--${state}`]]: state !== 'default'},
           props.className
         )}
       >
@@ -77,6 +78,7 @@ function showInputState(state: InputState, disabled = false) {
   return !disabled && state !== 'default';
 }
 
+// eslint-disable-next-line react/display-name
 const Input = React.forwardRef<HTMLInputElement, InputProps>((props, ref) => {
   const {
     state = 'default',
@@ -108,7 +110,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>((props, ref) => {
       ></input>
       {showInputState(state) && (
         <div className={styles['icon']}>
-          <img src={stateMetrics.icon} alt={stateMetrics.alt} />
+          <img src={stateMetrics.icon} alt={stateMetrics.alt}/>
         </div>
       )}
     </div>

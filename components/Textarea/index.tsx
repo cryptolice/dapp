@@ -1,17 +1,17 @@
-import React, { CSSProperties, TextareaHTMLAttributes } from 'react';
+import React, {CSSProperties, TextareaHTMLAttributes} from 'react';
 import styles from './index.module.scss';
-import { Extendable } from '../../types';
+import {Extendable} from '../../types';
 import classnames from 'classnames';
 import IconInputSuccess from '../../assets/icons/input-success.svg';
 import IconInputFail from '../../assets/icons/input-fail.svg';
-import { InputState } from '../Input';
+import {InputState} from '../Input';
 
 export type TextareaProps = Extendable &
   TextareaHTMLAttributes<HTMLElement> & {
-    state?: InputState;
-    elClassName?: string;
-    elStyle?: CSSProperties;
-  };
+  state?: InputState;
+  elClassName?: string;
+  elStyle?: CSSProperties;
+};
 
 const stateMap = {
   success: {
@@ -32,6 +32,7 @@ function hasInputState(state: InputState) {
   return state !== 'default';
 }
 
+// eslint-disable-next-line react/display-name
 const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
   (props, ref) => {
     const {
@@ -63,7 +64,7 @@ const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
         ></textarea>
         {hasInputState(state) && (
           <div className={styles['icon']}>
-            <img src={stateMetrics.icon} alt={stateMetrics.alt} />
+            <img src={stateMetrics.icon} alt={stateMetrics.alt}/>
           </div>
         )}
       </div>
