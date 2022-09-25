@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import Layout from "../../components/Layout";
 import Head from "next/head";
 import Header from "../../components/Header";
@@ -9,6 +9,11 @@ import Form from "../../components/form/Form";
 import {useForm} from "react-hook-form";
 import FormControl from "../../components/form/FormControl";
 import Button from "../../components/Button";
+import {useSecurityAddress} from "../../hooks/useSecurityAddress";
+import {ChainId} from "../../utils/api";
+import Rating from "@mui/material/Rating";
+import {ratingStars} from "../../utils/rating";
+import Textarea from "../../components/Textarea";
 
 const SearchAddressPage = () => {
   const form = useForm({
@@ -16,7 +21,15 @@ const SearchAddressPage = () => {
     defaultValues: {
       'address': ''
     }
-  })
+  });
+
+  const [address, setAddress] = useState('');
+  const {
+    data,
+    loading,
+    error,
+    trustScore
+  } = useSecurityAddress(ChainId.BNB_MAINNET, address)
 
   return (
     <Layout>
@@ -46,10 +59,11 @@ const SearchAddressPage = () => {
               form={form}
               onSubmit={(data) => {
                 console.log('submit', data);
+                setAddress(data.address)
               }}>
               <div className={'flex items-center'}>
                 <FormControl name={'address'} className={'flex-1'}>
-                  <Input
+                  <Textarea
                     placeholder={'address of smart contract, e.g. 0x0000000000000'}
                   />
                 </FormControl>
@@ -64,6 +78,24 @@ const SearchAddressPage = () => {
             </Form>
           </div>
 
+          {data && (
+            <div className={'mt-8'}>
+              <Typo.Title className={
+                '!text-xl'
+              }>Detection Result</Typo.Title>
+
+              <Typo.Normal>
+
+              </Typo.Normal>
+
+              <Rating
+                name="read-only"
+                readOnly
+                value={ratingStars(trustScore)}
+                precision={0.5}
+              />
+            </div>
+          )}
         </Card>
 
       </main>
