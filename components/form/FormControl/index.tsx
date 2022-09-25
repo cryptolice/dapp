@@ -1,9 +1,9 @@
-import React, { useContext } from 'react';
+import React, {useContext} from 'react';
 import Typo from '../../Typo';
-import { ErrorMessage } from '@hookform/error-message';
-import { Extendable } from '../../../types';
-import { FormContext } from '../Form';
-import { RegisterOptions } from 'react-hook-form/dist/types/validator';
+import {ErrorMessage} from '@hookform/error-message';
+import {Extendable} from '../../../types';
+import {FormContext} from '../Form';
+import {RegisterOptions} from 'react-hook-form/dist/types/validator';
 
 export type FormControlProps = Extendable<JSX.Element> & {
   name: string;
@@ -19,7 +19,7 @@ export type FormControlProps = Extendable<JSX.Element> & {
  */
 const FormControl = (props: FormControlProps) => {
   const formContext = useContext(FormContext);
-  const { hintsClassName = 'mt-[6px]' } = props;
+  const {hintsClassName = 'mt-[6px]'} = props;
 
   if (!props.children) return null;
   return (
@@ -27,15 +27,17 @@ const FormControl = (props: FormControlProps) => {
       {React.cloneElement(props.children, {
         ...formContext?.register(props.name, props.registerOptions),
       })}
-      <ErrorMessage
-        errors={formContext?.formState.errors}
-        name={props.name}
-        render={(error) => (
-          <Typo.Hints state={'error'} className={hintsClassName}>
-            {error.message}
-          </Typo.Hints>
-        )}
-      />
+      {formContext?.formState?.errors && (
+        <ErrorMessage
+          errors={formContext.formState.errors}
+          name={props.name}
+          render={(error) => (
+            <Typo.Hints state={'error'} className={hintsClassName}>
+              {error.message}
+            </Typo.Hints>
+          )}
+        />
+      )}
     </div>
   );
 };
