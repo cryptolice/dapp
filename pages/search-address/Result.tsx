@@ -18,6 +18,7 @@ import {useRouter} from "next/router";
 
 export type ResultProps = Extendable & {
   address: string;
+  chainName: string;
   score: number;
   riskDetails: RiskDetail[];
   onTryAnother: () => void;
@@ -31,8 +32,6 @@ const Result = (props: ResultProps) => {
   } = props;
   const stars = ratingStars(score)
   const level = ratingLevelByStars(stars)
-
-  console.log('riskDetails', riskDetails)
 
   return (
     <div className={classnames(
@@ -57,6 +56,9 @@ const Result = (props: ResultProps) => {
 
       <div className={'mt-4'}>
         <Typo.Normal>
+          Current Chain: {props.chainName}
+        </Typo.Normal>
+        <Typo.Normal className={'mt-2'}>
           Contract address: {address}
         </Typo.Normal>
       </div>

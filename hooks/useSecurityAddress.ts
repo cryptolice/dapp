@@ -28,7 +28,7 @@ export function useSecurityAddress(chainId: ChainId, address: string) {
   }
 }
 
-export async function getSecurityAddress(chainId: ChainId, address: string) {
+export async function getSecurityAddress(chainId: number, address: string) {
   if (!chainId || !address) return null;
   const rawData = await addressSecurity(chainId, address);
   if (rawData.status !== 'OK') throw new Error(JSON.stringify(rawData.error_data))

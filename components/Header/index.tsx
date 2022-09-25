@@ -10,9 +10,6 @@ const Nav = (props: Extendable) => {
       <ul className={'flex items-center'}>
         <li className={'mx-3'}><Link href={'/search-address'}>SEARCH</Link></li>
         <li className={'mx-3'}><Link href={'/report-address'}>REPORT</Link></li>
-        <li className={'mx-3'}><Link href={'/'}>GUIDE</Link></li>
-        <li className={'mx-3'}><Link href={'/'}>FAQ</Link></li>
-        <li className={'mx-3'}><Link href={'/'}>ABOUT</Link></li>
       </ul>
     </nav>
   )
