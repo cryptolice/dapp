@@ -25,10 +25,9 @@ export type ResultProps = Extendable & {
 }
 
 const Result = (props: ResultProps) => {
-  const score = 1;
   const {
     address = '',
-    // score = -1,
+    score = -1,
     riskDetails = []
   } = props;
   const stars = ratingStars(score)

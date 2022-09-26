@@ -48,16 +48,6 @@ const SearchAddressPage = () => {
     setHash(result.hash)
   }
 
-  useEffect(() => {
-    console.log('report data', data)
-    console.log('isLoading', isLoading)
-  }, [data, isLoading])
-
-  useEffect(() => {
-    console.log('txResult', txResult)
-    console.log('txLoading', txLoading)
-  }, [txResult, txLoading])
-
   return (
     <Layout>
       <Head>

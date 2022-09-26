@@ -8,12 +8,11 @@ export enum ChainId {
 export async function addressSecurity(chainId: number | string, address: string) {
   const body = {"chain_id": String(chainId), "address": address};
 
-  const response = await fetch('https://www.pipsr.cloud/api/v1/address-security', {
+  const response = await fetch('/api/v1/address-security', {
     method: 'post',
     body: JSON.stringify(body),
     headers: {'Content-Type': 'application/json'}
   });
   const data = await response.json();
-  console.log(data);
   return data;
 }
